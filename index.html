@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupe Scolaire Alexandre - Accueil</title>
+    <style>
+        /* Base Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9fb;
+            scroll-behavior: smooth;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: rotate(360deg);
+        }
+
+        .nav-bar {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .nav-bar.toggle {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .nav-toggle {
+            display: none;
+        }
+
+        .nav-toggle-label {
+            display: none;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        .content {
+            padding: 40px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: #ff4f81;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        /* Image Carousel */
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 50vh;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
+        }
+
+        .carousel-images {
+            display: flex;
+            width: 300%; /* Show 3 images */
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-images img {
+            width: 33.33%; /* Show 3 images */
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Carousel Control Buttons */
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .carousel-control.prev {
+            left: 10px;
+        }
+
+        .carousel-control.next {
+            right: 10px;
+        }
+
+        .carousel-control:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* School Supplies Box */
+        .supplies-section {
+            padding: 40px 20px;
+            margin-top: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .supplies-section h2 {
+            text-align: center;
+            color: #ff4f81;
+        }
+
+        .supplies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .supplies-box {
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #0072ff;
+        }
+
+        .supplies-box:hover {
+            transform: translateY(-5px);
+            background-color: #f1f1f1;
+        }
+
+        /* Login Grid */
+        .login-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .login-box a {
+            background-color: #0072ff;
+            color: white;
+            padding: 20px 40px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            display: block;
+            font-size: 1.2em;
+        }
+
+        .login-box a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+            background-color: #ff4f81;
+        }
+
+        /* Contact Us Section */
+        .contact-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background-color: #333;
+            color: white;
+            padding: 20px 40px;
+            text-align: left;
+        }
+
+        .contact-box {
+            flex: 1;
+            max-width: 300px;
+            margin-right: 40px;
+        }
+
+        .contact-box form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-box input, .contact-box textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .contact-box button {
+            background-color: #0072ff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-box button:hover {
+            background-color: #ff4f81;
+        }
+
+        /* School Contact Info */
+        .school-contacts {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .school-contacts h3 {
+            margin-bottom: 10px;
+        }
+
+        .school-contacts p {
+            margin: 5px 0;
+        }
+
+        .social-links {
+            margin: 15px 0;
+        }
+
+        .social-links img {
+            width: 30px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        iframe {
+            border: 0;
+            width: 100%;
+            height: 350px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .contact-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-box {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .social-links img {
+                margin-bottom: 10px;
+            }
+
+            .nav-toggle-label {
+                display: block;
+            }
+
+            .nav-bar {
+                display: none;
+            }
+
+            .nav-bar.toggle {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+            <img src="manarlogo.png" alt="groupe scolaire Logo">
+            <h1>Accueil</h1>
+        </div>
+        <label for="nav-toggle" class="nav-toggle-label">&#9776;</label>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
+        <nav class="nav-bar">
+            <a href="#carousel">Accueil</a>
+            <a href="#supplies">Fourniture</a>
+            <a href="#login">Connexion</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Content Section -->
+    <div class="content">
+        <h2>Bienvenue à Groupe Scolaire Alexandre</h2>
+
+        <!-- Image Carousel -->
+        <div class="carousel" id="carousel">
+            <button class="carousel-control prev">&#10094;</button>
+            <div class="carousel-images">
+                <img src="school-pic1.jpg" alt="Photo de l'école 1">
+                <img src="school-pic2.jpg" alt="Photo de l'école 2">
+                <img src="school-pic3.jpg" alt="Photo de l'école 3">
+            </div>
+            <button class="carousel-control next">&#10095;</button>
+        </div>
+
+        <!-- School Supplies Section -->
+        <div class="supplies-section" id="supplies">
+            <h2>Fourniture Scolaire</h2>
+            <div class="supplies-grid">
+                <a href="primaire.html" class="supplies-box">Primaire</a>
+                <a href="college.html" class="supplies-box">Collège</a>
+                <a href="lycee.html" class="supplies-box">Lycée</a>
+            </div>
+        </div>
+
+        <!-- Login Box -->
+        <div class="login-box" id="login">
+            <a href="studentlogin.html">Connexion Élève</a>
+            <a href="teacherlogin.html">Connexion Enseignant(e)</a>
+            <a href="principallogin.html">Connexion Directeur</a>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section" id="contact">
+            <!-- Smaller Contact Form -->
+            <div class="contact-box">
+                <h3>Contactez-nous</h3>
+                <form action="mailto:example@example.com" method="post" enctype="text/plain">
+                    <input type="text" name="name" placeholder="Votre nom" required>
+                    <input type="email" name="email" placeholder="Votre email" required>
+                    <textarea name="message" rows="4" placeholder="Votre message" required></textarea>
+                    <button type="submit">Envoyer</button>
+                </form>
+            </div>
+
+            <!-- School Contact Info -->
+            <div class="school-contacts">
+                <h3>Contacts</h3>
+                <p><strong>gs Écolier:</strong> 05 22 67 16 50 / 06 61 56 13 31</p>
+                <p><strong>gs Collège:</strong> 05 22 34 16 69 / 05 22 34 16 70 / 06 97 41 39 16</p>
+                <p><strong>gs Lycée:</strong> 05 22 67 25 51 / 05 22 35 34 24</p>
+
+                <div class="social-links">
+                    <a href="https://web.facebook.com/saado.safih" target="_blank">
+                        <img src="facebooklogo.png" alt="Facebook Logo">
+                    </a>
+                </div>
+
+                <p><strong>Adresse:</strong> 123 Rue de l'École, Ville, Pays</p>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-section">
+            <h3>Localisation</h3>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d709.1298710289077!2d-7.55650710409191!3d33.56406731909243!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda633328d7aca1f%3A0xe75e41e911ba5685!2sGroupe%20Scolaire%20Manar%20el%20Khair%202!5e1!3m2!1sfr!2sma!4v1726335829363!5m2!1sfr!2sma" 
+                allowfullscreen="" 
+                loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for the image carousel
+        const carouselImages = document.querySelector('.carousel-images');
+        const images = document.querySelectorAll('.carousel-images img');
+        const imageCount = images.length;
+        const prevButton = document.querySelector('.carousel-control.prev');
+        const nextButton = document.querySelector('.carousel-control.next');
+        let currentIndex = 0;
+
+        function showImage(index) {
+            const offset = index * 100 / 3;  // Calculate the offset in percentage for 3 images
+            carouselImages.style.transform = `translateX(-${offset}%)`;
+        }
+
+        function showNextImage() {
+            currentIndex = (currentIndex + 1) % imageCount;
+            showImage(currentIndex);
+        }
+
+        function showPrevImage() {
+            currentIndex = (currentIndex - 1 + imageCount) % imageCount;
+            showImage(currentIndex);
+        }
+
+        nextButton.addEventListener('click', showNextImage);
+        prevButton.addEventListener('click', showPrevImage);
+
+        // Optional: Remove automatic sliding
+        // setInterval(showNextImage, 5000); // Remove or comment this line to stop auto-sliding
+    </script>
+</body>
+</html>
